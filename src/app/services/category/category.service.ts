@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class CategoryService {
 
-  cateUrl = 'http://localhost:3000/categories';
+  cateUrl = 'https://dbln.onrender.com/categories';
 
   constructor(private http: HttpClient) { }
   getAllCate():Observable<Category[]>{

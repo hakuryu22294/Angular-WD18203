@@ -7,7 +7,7 @@ import { Product } from '../../interface/Product';
   providedIn: 'root'
 })
 export class ProductService {
-  adminUrl = 'http://localhost:3000/products';
+  adminUrl = 'https://dbln.onrender.com/products';
 
   constructor(private http: HttpClient) { }
   getData():Observable<Product[]>{
