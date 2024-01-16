@@ -1,0 +1,14 @@
+<app-header></app-header>
+<div class="container mx-auto">
+    <main class="container mx-auto my-[36px]">
+        <h1 class="pb-4 text-center text-4xl font-extrabold my-[36px]">
+          Product List
+        </h1>
+        <div class="flex flex-wrap justify-center gap-6">
+          <app-product-card class="w-[22%]"
+            *ngFor="let product of prdList"
+            [product]="product"
+          />
+        </div>
+      </main>
+</div>

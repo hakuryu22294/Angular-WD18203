@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Reem+Kufi+Fun:wght@400;500;600;700&display=swap');
+
+header{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    font-family: 'Reem Kufi Fun', sans-serif;
+}
+header span.self-center{
+    fill: linear-gradient(to right, #000, #00f)
+}
