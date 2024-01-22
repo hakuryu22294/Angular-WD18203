@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -12,10 +13,11 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   
-  constructor(protected userService:UserService){
+  constructor(protected userService:UserService, private toastr:ToastrService){
   }
 
   logOut(){
     sessionStorage.clear();
+    this.toastr.success("Logout Successfully")
   }
 }
