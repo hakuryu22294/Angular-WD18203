@@ -25,7 +25,7 @@ export class ProductListComponent implements OnInit {
     })
  }
  delettePrd(id:string){
-    const isDelete = confirm('Are you sure you want to delete');
+    const isDelete = window.confirm('Are you sure you want to delete');
     if(isDelete){
       this.productService.deletePrdAdmin(id)
       .subscribe(() => {

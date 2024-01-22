@@ -40,10 +40,9 @@ export class CreateComponent implements OnInit  {
 
 
   onSubmit(): void {
-    console.log(this.form.controls);
+    debugger;
    if(this.form.valid){
       this.productService.createPrdAdmin(this.form.value).subscribe((res: any) => {
-       console.log(res);
        if (res) {
          this.toastrService.success('Successfully created', "Success");
          this.router.navigate(['admin/all-products']);

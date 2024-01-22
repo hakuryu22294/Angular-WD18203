@@ -1,0 +1,47 @@
+<div class="overlay fixed top-[0] left-0 w-[100vw] h-[100vh] opacity-[0.5] bg-white">
+</div>
+<div class=" flex flex-col w-full fixed top-0 items-center justify-center px-6 py-8 md:h-screen lg:py-0">
+    <div class="w-full bg-pink-200 rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+        <div class="relative opacity-1  p-6 space-y-4 md:space-y-6 sm:p-8">
+            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+                Register
+            </h1>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class=" space-y-4 md:space-y-6" action="#">
+                <div>
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Your email</label>
+                    <input formControlName="email" type="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"  placeholder="name@company.com" required="">
+                    <p class="text-red-300" *ngIf="form.controls['email'].hasError('required')">Email is no empty</p>
+                    <p class="text-red-300" *ngIf="form.controls['email'].hasError('email')">Email must be valid</p>
+                </div>
+                <div>
+                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 ">UserName</label>
+                    <input formControlName="username" type="text" name="username" id="text" placeholder="User Name " class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"  required="">
+                    <p class="text-red-300" *ngIf="form.controls['username'].hasError('required')">Password is no empty</p>
+                </div>
+                <div>
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
+                    <input formControlName="password" type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"  required="">
+                    <p class="text-red-300" *ngIf="form.controls['password'].hasError('required')">Password is no empty</p>
+                    <p class="text-red-300" *ngIf="form.controls['password'].hasError('minlength')">Password minimum 8 characters</p>
+                </div>
+               
+                <div>
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Confirm Password</label>
+                    <input formControlName="confirmPassword" type="password" name="confirmPassword"  placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"  required="">
+                    <p class="text-red-300" *ngIf="form.controls['confirmPassword'].hasError('required')">Confirm Password is no empty</p>
+                    <p class="text-red-300" *ngIf="form.controls['confirmPassword'].hasError('minlength')">ConfirmPassword minimum 8 characters</p>
+                    <p class="text-red-300" *ngIf="form?.errors?.['missmatch'] && form.touched">Confirm Password does not match Password</p>
+                </div>
+                <div class="flex items-center justify-between">
+                </div>
+                <button type="submit" class="w-full text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Register</button>
+            </form>
+            <div class="absolute top-0 right-[85%]  w-[50%]">
+                <img class="w-full" src="../../../../assets/login.png" alt="">
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+

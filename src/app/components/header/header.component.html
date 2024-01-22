@@ -25,10 +25,17 @@
               <li>
                 <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Pricing</a>
               </li>
-              <li>
+              <li *ngIf="userService.getRole() === 'admin'">
                 <a routerLink="admin" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Admin</a>
               </li>
             </ul>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex gap-4">
+              <button *ngIf="!userService.isLoggedIn()" routerLink="/login" class="bg-pink-700 hover:bg-pink-800 text-white py-2 px-3 rounded">Sign-in</button>
+              <button *ngIf="!userService.isLoggedIn()" routerLink="/register" class="bg-purple-700 hover:bg-purple-800 text-white py-2 px-3 rounded">Register</button>
+              <button *ngIf="userService.isLoggedIn()" class="bg-red-500 hover:bg-red-800 text-white py-2 px-3 rounded" (click)="logOut()">Log out</button>
+            </div>
           </div>
         </div>
       </nav>    
