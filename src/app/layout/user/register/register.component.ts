@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,ReactiveFormsModule, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, catchError, map } from 'rxjs';
 
 
 
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit {
     ){}
     ngOnInit(): void {
       this.form = this.fb.group({
-        email: new FormControl('', Validators.compose([Validators.required, Validators.email])),
+        email: new FormControl('', Validators.compose([Validators.required, Validators.email]),[this.validateDuplicateEmail.bind(this)]),
         username: new FormControl('', Validators.required),
         password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)])),
         confirmPassword: new FormControl('', Validators.compose([Validators.required, Validators.minLength(8)]))
@@ -32,6 +33,7 @@ export class RegisterComponent implements OnInit {
       {
         validators: this.passwordMatchValidator
       });
+     
     }
 
     passwordMatchValidator(control: AbstractControl){
@@ -39,6 +41,13 @@ export class RegisterComponent implements OnInit {
       ? null : {missmatch:true}
     }
 
+    validateDuplicateEmail(control: AbstractControl): Observable<ValidationErrors | null> {
+      return this.userService.checkEmail(control.value).pipe(
+        map((user: any) => {
+          return user ? { duplicateEmail: true } : null;
+        })
+      );
+    }
   
     onSubmit(): void {
       const userRegistrationData = {

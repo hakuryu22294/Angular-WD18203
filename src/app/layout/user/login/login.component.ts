@@ -31,27 +31,30 @@ export class LoginComponent implements OnInit {
       });
   }
   onSubmit(): void {
-    if (this.loginForm.valid){
+    if (this.loginForm.valid) {
       const res = this.userService.getByEmail(this.loginForm.value.email);
       console.log(res);
-      if(res !== null){
-        res.subscribe((res:any) => {
-          this.userInfo = res;
-          console.log(this.userInfo)
-          if(this.userInfo.password === this.loginForm.value.password){
-            sessionStorage.setItem('id', `${this.userInfo.id}`);
-            sessionStorage.setItem('role', `${this.userInfo.role}`);
-            this.toastr.success('Login successful')
-            this.router.navigate([''])
-          }else{
-            this.toastr.error('Password is incorrect')
+      res.subscribe(
+        (res: any) => {
+          try {
+            this.userInfo = res;
+            console.log(this.userInfo);
+            if (this.userInfo.password === this.loginForm.value.password) {
+              sessionStorage.setItem('id', `${this.userInfo.id}`);
+              sessionStorage.setItem('role', `${this.userInfo.role}`);
+              this.toastr.success('Login successful');
+              this.router.navigate(['']);
+            } else {
+              this.toastr.error('Password is incorrect');
+            }
+          } catch (err: any) {
+            this.toastr.error(err.message);
           }
-        })
-      }else{
-        this.toastr.error('Email incorrect')
-      }
-     
+        },
+        (error: any) => {
+          this.toastr.error(error.message);
+        }
+      );
     }
   }
-
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../interface/User';
-import { Observable, map, switchMap } from 'rxjs';
+import { Observable, filter, find, map, switchMap } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService{  
+  userArr: User[] | any;
   userURL = 'https://dbln.onrender.com/users';
   constructor(private http:HttpClient) { }
   getAll(){
@@ -26,6 +27,15 @@ export class UserService{
     );
   }
 
+  checkEmail(email: string): Observable<any> {
+    return this.getAll().pipe(
+      map((users: any) => {
+        return users.find((user: any) => user.email === email);
+        
+      })
+    );
+  }
+
   
   register(email:string, username:string, password:string, role:string='member'):Observable<any>{
     const body={
@@ -37,6 +47,7 @@ export class UserService{
     return this.http.post(this.userURL,body)
   }
 
+  
   isLoggedIn() {
     return typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined'
       && sessionStorage.getItem('id') !== null;
