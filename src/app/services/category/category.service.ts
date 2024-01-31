@@ -13,6 +13,10 @@ export class CategoryService {
   getAllCate():Observable<Category[]>{
     return this.http.get<Category[]>(this.cateUrl);
   }
+  getCategoryByID(id:number):Observable<Category>{
+    return this.http.get<Category>(`${this.cateUrl}/${id}`);
+  }
+ 
   deleteCate(id:number):Observable<Category>{
     return this.http.delete<Category>(`${this.cateUrl}/${id}`);
   }

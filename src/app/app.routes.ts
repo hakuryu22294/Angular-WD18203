@@ -9,34 +9,58 @@ import { LoginComponent } from './layout/user/login/login.component';
 import { RegisterComponent } from './layout/user/register/register.component';
 import { adminGuard } from './guards/admin.guard';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
-
+import { CateListComponent } from './layout/categoty/cate-list/cate-list.component';
+import { CreateCateComponent } from './layout/categoty/create-cate/create-cate.component';
+import { UpdateCateComponent } from './layout/categoty/update-cate/update-cate.component';
 export const routes: Routes = [
-    {path: '', component:HomeComponent,
-        children:[
-            {
-                path:'login', component:LoginComponent
-            },
-            {
-                path:'register', component:RegisterComponent
-            }
-        ]},
-    {path:'admin', component:AdminComponent,
-        children:[
-            {
-                path:'', component:AdminHomeComponent
-            },
-            {
-                path:'all-products', component:ProductListComponent
-            },
-            {
-                path:'create', component:CreateComponent
-            },
-            {
-                path:'update/:id', component:UpdateComponent
-            }
-        ],
-        canActivate:[adminGuard]
-        
-    },
-    {path:'error', component:ErrorPageComponent}
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+      },
+    ],
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      {
+        path: '',
+        component: AdminHomeComponent,
+      },
+      {
+        path: 'all-products',
+        component: ProductListComponent,
+      },
+      {
+        path: 'create',
+        component: CreateComponent,
+      },
+      {
+        path: 'update/:id',
+        component: UpdateComponent,
+      },
+      {
+        path: 'all-category',
+        component: CateListComponent,
+      },
+      {
+        path: 'create-category',
+        component: CreateCateComponent,
+      },
+      {
+        path: 'update-category/:id',
+        component: UpdateCateComponent,
+      },
+    ],
+    canActivate: [adminGuard],
+  },
+  { path: 'error', component: ErrorPageComponent },
 ];

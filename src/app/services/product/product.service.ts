@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Product } from '../../interface/Product';
 
 @Injectable({
@@ -28,4 +28,11 @@ export class ProductService {
   updatePrdAdmin(id:string, product:Product):Observable<Product>{
     return this.http.put<Product>(`${this.adminUrl}/${id}`, product);
   }
+
+  getProductCountForCategory(categoryId: number): Observable<number> {
+    return this.getPrdAdmin().pipe(map((products: any[]) => {
+      return products.filter(product => product.categoryId === categoryId).length;
+    }));
+  }
+
 }

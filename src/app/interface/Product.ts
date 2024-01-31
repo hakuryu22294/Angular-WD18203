@@ -8,5 +8,5 @@ export interface Product {
         rate?:number;
         count?:number;
     }
-    category?:string;
+    categoryID?:number;
 }

@@ -34,14 +34,14 @@ export class UpdateComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(3)]], 
       price: [0, Validators.min(1)],
       description: ['', Validators.required],
-      category: ['', Validators.required],
+      categoryID: [0, Validators.required],
       image: ['', Validators.required],
     });
     this.route.params.subscribe(params => {
       const productId = params['id'];
       this.productService.getProductById(productId).subscribe(product => {
         this.form.patchValue(product);
-        this.form.get('category')?.setValue(product.category);
+        this.form.get('category')?.setValue(product.categoryID);
       });
     });
   }

@@ -32,7 +32,7 @@ export class CreateComponent implements OnInit  {
       title: ['',[Validators.required, Validators.minLength(3)]],
       price: [0, Validators.min(1)],
       description: ['', Validators.required],
-      category: ['', Validators.required],
+      categoryID: [0, Validators.required],
       image:['', Validators.required]
     });
   }
@@ -40,7 +40,7 @@ export class CreateComponent implements OnInit  {
 
 
   onSubmit(): void {
-    debugger;
+    
    if(this.form.valid){
       this.productService.createPrdAdmin(this.form.value).subscribe((res: any) => {
        if (res) {
