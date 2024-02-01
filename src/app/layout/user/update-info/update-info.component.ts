@@ -6,18 +6,19 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-info',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './update-info.component.html',
   styleUrl: './update-info.component.css',
 })
 export class UpdateInfoComponent implements OnInit {
+  userID: string = this.route.snapshot.paramMap.get('id')!;
   form: FormGroup = new FormGroup({
     username: new FormControl(
       [''],
