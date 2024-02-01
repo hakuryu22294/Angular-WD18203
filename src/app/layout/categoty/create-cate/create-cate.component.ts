@@ -8,6 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from '../../../services/category/category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-cate',
@@ -22,7 +23,8 @@ export class CreateCateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private cateService: CategoryService
+    private cateService: CategoryService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -36,6 +38,7 @@ export class CreateCateComponent implements OnInit {
       this.cateService.createCate(this.form.value).subscribe((res: any) => {
         if (res) {
           this.toastr.success('Successfully created', 'Success');
+          this.router.navigate(['admin/all-category']);
         } else {
           this.toastr.error('Error creating');
         }

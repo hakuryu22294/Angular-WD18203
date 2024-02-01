@@ -1,0 +1,60 @@
+<div class="flex justify-between items-center">
+    <h2 class="py-[20px] text-[36px] font-bold">User List</h2>
+    <div class="py-[20px]">
+        <button routerLink="/admin/create-category" type="button"
+            class="text-white bg-pink-500 hover:bg-pink-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Add
+            New</button>
+    </div>
+</div>
+<div class=" overflow-x-auto shadow-md sm:rounded-lg mx-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-purple-500">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    User name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Role
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Tel
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Address
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users" class="odd:bg-purple-200 even:bg-purple-300 items-center">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    {{user.username}}
+                </th>
+                <td class="px-6 py-4">
+                    {{user.email}}
+                </td>
+
+                <td class="px-6 py-4">
+                    {{user.role}}
+                </td>
+                <td class="px-6 py-4">
+                    {{user.tel || "Đang cập nhật..."}}
+                </td>
+                <td class="px-6 py-4">
+                    {{user.address || "Đang cập nhật..."}}
+                </td>
+                <td class="px-6 py-4">
+                    <button type="button"
+                        class="text-white bg-pink-700 hover:bg-pink-900 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
+                        (click)="removeUser(user.id!)">Remove
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

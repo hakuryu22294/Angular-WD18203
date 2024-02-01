@@ -11,11 +11,15 @@ export class UserService {
   userURL = 'https://dbln.onrender.com/users';
   url = 'https://dbln.onrender.com';
   constructor(private http: HttpClient) {}
-  getAll() {
-    return this.http.get(this.userURL);
+  getAllUsers(): Observable<any> {
+    return this.http.get<any>(this.userURL);
+  }
+
+  removeUser(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.userURL}/${id}`);
   }
   getByEmail(email: string): Observable<any> {
-    return this.getAll().pipe(
+    return this.getAllUsers().pipe(
       map((users: any) => users.find((user: any) => user.email === email)),
       switchMap((user: any) => {
         if (user) {
@@ -27,8 +31,16 @@ export class UserService {
     );
   }
 
+  getUserById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.userURL}/${id}`);
+  }
+
+  updateUser(id: string, user: User): Observable<any> {
+    return this.http.patch<any>(this.userURL + '/' + id, user);
+  }
+
   checkEmail(email: string): Observable<any> {
-    return this.getAll().pipe(
+    return this.getAllUsers().pipe(
       map((users: any) => {
         return users.find((user: any) => user.email === email);
       })

@@ -50,8 +50,9 @@ export class LoginComponent implements OnInit {
             if (response) {
               sessionStorage.setItem('token', `${response.accessToken}`);
               sessionStorage.setItem('role', `${response.user.role}`);
+              sessionStorage.setItem('id', `${response.user.id}`);
               this.toastr.success('Login successful');
-              this.router.navigate(['']);
+              this.router.navigate([`user/${response.user.id}`]);
             } else {
               this.toastr.error('Email or password is incorrect');
             }

@@ -12,6 +12,8 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
 import { CateListComponent } from './layout/categoty/cate-list/cate-list.component';
 import { CreateCateComponent } from './layout/categoty/create-cate/create-cate.component';
 import { UpdateCateComponent } from './layout/categoty/update-cate/update-cate.component';
+import { UserListComponent } from './layout/user/user-list/user-list.component';
+import { UpdateInfoComponent } from './layout/user/update-info/update-info.component';
 export const routes: Routes = [
   {
     path: '',
@@ -22,8 +24,16 @@ export const routes: Routes = [
         component: LoginComponent,
       },
       {
+        path: 'user/:id',
+        component: HomeComponent,
+      },
+      {
         path: 'register',
         component: RegisterComponent,
+      },
+      {
+        path: 'user-info/:id',
+        component: UpdateInfoComponent,
       },
     ],
   },
@@ -58,6 +68,10 @@ export const routes: Routes = [
       {
         path: 'update-category/:id',
         component: UpdateCateComponent,
+      },
+      {
+        path: 'all-users',
+        component: UserListComponent,
       },
     ],
     canActivate: [adminGuard],
