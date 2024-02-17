@@ -14,6 +14,7 @@ import { CreateCateComponent } from './layout/categoty/create-cate/create-cate.c
 import { UpdateCateComponent } from './layout/categoty/update-cate/update-cate.component';
 import { UserListComponent } from './layout/user/user-list/user-list.component';
 import { UpdateInfoComponent } from './layout/user/update-info/update-info.component';
+import { BlankComponent } from './components/blank/blank.component';
 export const routes: Routes = [
   {
     path: '',
@@ -25,7 +26,7 @@ export const routes: Routes = [
       },
       {
         path: 'user/:id',
-        component: HomeComponent,
+        component: BlankComponent,
       },
       {
         path: 'register',
@@ -48,6 +49,16 @@ export const routes: Routes = [
       {
         path: 'all-products',
         component: ProductListComponent,
+        children: [
+          {
+            path: '?filter',
+            component: ProductListComponent,
+          },
+          {
+            path: '?seach',
+            component: ProductListComponent,
+          },
+        ],
       },
       {
         path: 'create',

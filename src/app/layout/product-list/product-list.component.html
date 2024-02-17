@@ -1,11 +1,32 @@
 <div class="flex justify-between items-center">
     <h2 class="py-[20px] text-[36px] font-bold">Product Table</h2>
-    <div class="py-[20px]">
-        <button routerLink="/admin/create" type="button" class="text-white bg-pink-500 hover:bg-pink-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Add New</button>
+    <div class="custom-select w-[30%] flex gap-2 items-center">
+        <label for="countries" class="block text-sm font-medium text-gray-900 ">Category</label>
+        <select id="countries" [(ngModel)]="categorySelected" (change)="onCategorySelected(categorySelected)"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5">
+            <option *ngFor="let cate of categoryList" [routerLink]="['/admin/all-product', cate.id]" [value]="cate.id">
+                {{cate.name}}
+            </option>
+        </select>
     </div>
-</div> 
+    <div class="w-[30%] relative">
+        <input id="search" type="search" [(ngModel)]="searchKeyword" (keyup)="onSearchChange()" [matAutocomplete]="auto"
+            placeholder="Search products..."
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        <mat-autocomplete class="top-[20px]" #auto="matAutocomplete">
+            <mat-option *ngFor="let product of searchResults" [value]="product.title">
+                {{ product.title }}
+            </mat-option>
+        </mat-autocomplete>
+    </div>
+    <div class="py-[20px]">
+        <button routerLink="/admin/create" type="button"
+            class="text-white bg-pink-500 hover:bg-pink-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Add
+            New</button>
+    </div>
+</div>
 <div class=" overflow-x-auto shadow-md sm:rounded-lg mx-auto">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+    <table class="mat-elevation-z8 w-full text-sm text-left rtl:text-right text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-purple-500">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -29,7 +50,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let prd of prdList" class="odd:bg-purple-200 even:bg-purple-300 items-center">
+            <tr *ngFor="let prd of tempArr | paginate: { itemsPerPage: 5, currentPage: p, totalItems: totalProduct }"
+                class="odd:bg-purple-200 even:bg-purple-300 items-center">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                     {{prd.title}}
                 </th>
@@ -40,17 +62,23 @@
                     <img class="max-w-[100px]" [src]="prd.image" alt="">
                 </td>
                 <td class="px-6 py-4">
-                    {{  categoryNames[prd.categoryID] || "Đang cập nhật"}}
+                    {{ categoryNames[prd.categoryID] || "Đang cập nhật"}}
                 </td>
                 <td class="px-6 py-4">
                     {{prd?.description | truncate:30}}
                 </td>
                 <td class="px-6 py-4">
-                    <button type="button" class="text-white bg-indigo-500 hover:bg-indigo-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 " routerLink="/admin/update/{{prd.id}}" routerLinkActive="router-link-active"  >Edit</button>
-                    <button type="button" class="text-white bg-pink-700 hover:bg-pink-900 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 " (click)="delettePrd(prd.id)" >Delete</button>
+                    <button type="button"
+                        class="text-white bg-indigo-500 hover:bg-indigo-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
+                        routerLink="/admin/update/{{prd.id}}" routerLinkActive="router-link-active">Edit</button>
+                    <button type="button"
+                        class="text-white bg-pink-700 hover:bg-pink-900 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
+                        (click)="delettePrd(prd.id)">Delete</button>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-
+<div class="text-center mt-[30px]">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

@@ -1,38 +1,52 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { HttpClient, HttpHandler, HttpRequest } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Product } from '../../interface/Product';
+import { TokenInterceptorService } from '../interceptor/token-interceptor.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
   adminUrl = 'https://dbln.onrender.com/products';
 
-  constructor(private http: HttpClient) { }
-  getData():Observable<Product[]>{
-    return this.http.get<Product[]>(this.adminUrl)
-  }
-  getPrdAdmin():Observable<Product[]>{
+  constructor(
+    private http: HttpClient,
+    private tokenInterceptor: TokenInterceptorService,
+    private httpHandler: HttpHandler
+  ) {}
+  getData(): Observable<Product[]> {
     return this.http.get<Product[]>(this.adminUrl);
   }
-  getProductById(id:string):Observable<Product>{
-    return this.http.get<Product>(`${this.adminUrl}/${id}`)
+  getPrdAdmin(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.adminUrl);
   }
-  deletePrdAdmin(id:string):Observable<Product>{
-    return this.http.delete<Product>(`${this.adminUrl}/${id}`);
+  getProductById(id: string): Observable<Product> {
+    return this.http.get<Product>(`${this.adminUrl}/${id}`);
   }
-  createPrdAdmin(product:Product):Observable<Product>{
-    return this.http.post<Product>(this.adminUrl, product);
-  }
-  updatePrdAdmin(id:string, product:Product):Observable<Product>{
-    return this.http.put<Product>(`${this.adminUrl}/${id}`, product);
-  }
-
-  getProductCountForCategory(categoryId: number): Observable<number> {
-    return this.getPrdAdmin().pipe(map((products: any[]) => {
-      return products.filter(product => product.categoryId === categoryId).length;
-    }));
+  deletePrdAdmin(id: string): Observable<any> {
+    const request: HttpRequest<any> = new HttpRequest(
+      'DELETE',
+      `${this.adminUrl}/${id}`
+    );
+    return this.tokenInterceptor.intercept(request, this.httpHandler);
   }
 
+  createPrdAdmin(product: Product): Observable<any> {
+    const request: HttpRequest<any> = new HttpRequest(
+      'POST',
+      this.adminUrl,
+      product
+    );
+    return this.tokenInterceptor.intercept(request, this.httpHandler);
+  }
+
+  updatePrdAdmin(id: string, product: Product): Observable<any> {
+    const request: HttpRequest<any> = new HttpRequest(
+      'PUT',
+      `${this.adminUrl}/${id}`,
+      product
+    );
+    return this.tokenInterceptor.intercept(request, this.httpHandler);
+  }
 }

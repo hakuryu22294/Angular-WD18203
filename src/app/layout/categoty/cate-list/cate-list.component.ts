@@ -30,22 +30,19 @@ export class CateListComponent implements OnInit {
   getAllCategories(): void {
     this.categoryService.getAllCate().subscribe((categories: any) => {
       this.cateList = categories;
-      this.getQuantities();
+      this.calculateProductCounts();
     });
   }
 
-  getQuantities(): void {
-    this.productService.getPrdAdmin().subscribe((products: any) => {
-      this.calculateProductCounts(products);
-    });
-  }
-
-  calculateProductCounts(products: any[]): void {
-    this.cateList.forEach((category) => {
-      const count = products.filter(
-        (product) => product.categoryID === category.id
-      ).length;
-      this.productCounts[category.id] = count || 0;
+  calculateProductCounts(): void {
+    this.productService.getData().subscribe((products: any) => {
+      products.forEach((product: any) => {
+        if (!this.productCounts[product.categoryID]) {
+          this.productCounts[product.categoryID] = 1;
+        } else {
+          this.productCounts[product.categoryID]++;
+        }
+      });
     });
   }
   deleteCategory(categoryID: any): void {

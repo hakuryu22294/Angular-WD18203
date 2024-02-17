@@ -34,7 +34,7 @@
                 </td>
 
                 <td *ngIf="cate.id !== undefined" class="px-6 py-4">
-                    {{productCounts[cate.id]}}
+                    {{productCounts[cate.id] || 0}}
                 </td>
                 <td class="px-6 py-4">
                     <button type="button"
