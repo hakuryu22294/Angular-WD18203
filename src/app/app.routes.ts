@@ -51,11 +51,11 @@ export const routes: Routes = [
         component: ProductListComponent,
         children: [
           {
-            path: '?filter',
+            path: 'filter',
             component: ProductListComponent,
           },
           {
-            path: '?seach',
+            path: 'seach',
             component: ProductListComponent,
           },
         ],
