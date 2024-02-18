@@ -27,7 +27,7 @@ export class UpdateInfoComponent implements OnInit {
     email: new FormControl({ value: '', disabled: true }),
     tel: new FormControl(
       [''],
-      [Validators.required, Validators.pattern('[0-9]*')]
+      [Validators.required, Validators.pattern(/^[0-9]{10}$/)]
     ),
     address: new FormControl(['']),
   });

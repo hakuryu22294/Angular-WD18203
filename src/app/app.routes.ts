@@ -15,6 +15,8 @@ import { UpdateCateComponent } from './layout/categoty/update-cate/update-cate.c
 import { UserListComponent } from './layout/user/user-list/user-list.component';
 import { UpdateInfoComponent } from './layout/user/update-info/update-info.component';
 import { BlankComponent } from './components/blank/blank.component';
+import { CreateUserComponent } from './layout/user/create-user/create-user.component';
+import { UpdateUserComponent } from './layout/user/update-user/update-user.component';
 export const routes: Routes = [
   {
     path: '',
@@ -83,6 +85,14 @@ export const routes: Routes = [
       {
         path: 'all-users',
         component: UserListComponent,
+      },
+      {
+        path: 'create-user',
+        component: CreateUserComponent,
+      },
+      {
+        path: 'update-user/:id',
+        component: UpdateUserComponent,
       },
     ],
     canActivate: [adminGuard],

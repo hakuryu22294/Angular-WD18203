@@ -6,7 +6,6 @@ import {
   FormGroup,
   Validators,
   ReactiveFormsModule,
-  FormControl,
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
@@ -22,37 +21,37 @@ import { Observable, map } from 'rxjs';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit {
-  form!: FormGroup;
+  form: FormGroup;
   submited: boolean = false;
   constructor(
     private userService: UserService,
     private toastr: ToastrService,
     private fb: FormBuilder,
     private router: Router
-  ) {}
-  ngOnInit(): void {
+  ) {
     this.form = this.fb.group(
       {
-        email: new FormControl(
+        email: [
           '',
           Validators.compose([Validators.required, Validators.email]),
-          [this.validateDuplicateEmail.bind(this)]
-        ),
-        username: new FormControl('', Validators.required),
-        password: new FormControl(
+          [this.validateDuplicateEmail.bind(this)],
+        ],
+        username: ['', Validators.required],
+        password: [
           '',
-          Validators.compose([Validators.required, Validators.minLength(8)])
-        ),
-        confirmPassword: new FormControl(
+          Validators.compose([Validators.required, Validators.minLength(8)]),
+        ],
+        confirmPassword: [
           '',
-          Validators.compose([Validators.required, Validators.minLength(8)])
-        ),
+          Validators.compose([Validators.required, Validators.minLength(8)]),
+        ],
       },
       {
         validators: this.passwordMatchValidator,
       }
     );
   }
+  ngOnInit(): void {}
 
   passwordMatchValidator(control: AbstractControl) {
     return control.get('password')?.value ===
@@ -72,20 +71,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const userRegistrationData = {
-      email: this.form.get('email')?.value,
-      username: this.form.get('username')?.value,
-      password: this.form.get('password')?.value,
-      role: 'member',
-    };
-
     if (this.form.valid) {
+      const { email, username, password } = this.form.value;
       this.userService
-        .register(
-          userRegistrationData.email,
-          userRegistrationData.username,
-          userRegistrationData.password
-        )
+        .register(email, username, password, 'admin')
         .subscribe((res: any) => {
           if (res) {
             this.toastr.success('Create Successfully');

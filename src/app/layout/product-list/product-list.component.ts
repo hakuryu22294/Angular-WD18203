@@ -6,7 +6,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { RouterLink } from '@angular/router';
 import { CategoryService } from '../../services/category/category.service';
-import { Observable, forkJoin, map, mergeMap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -107,7 +107,7 @@ export class ProductListComponent implements OnInit {
   filterProductsByCategory(categoryId: number): void {
     this.productService.getPrdAdmin().subscribe((data: any) => {
       this.tempArr = data.filter(
-        (prd: any) => Number(prd.categoryID) === categoryId
+        (prd: any) => Number(prd.categoryID) == categoryId
       );
       this.totalProduct = this.tempArr.length;
       this.router.navigate([], {

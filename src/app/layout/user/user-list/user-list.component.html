@@ -1,9 +1,10 @@
 <div class="flex justify-between items-center">
     <h2 class="py-[20px] text-[36px] font-bold">User List</h2>
     <div class="py-[20px]">
-        <button routerLink="/admin/create-category" type="button"
+        <button routerLink="/admin/create-user" type="button"
             class="text-white bg-pink-500 hover:bg-pink-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Add
             New</button>
+
     </div>
 </div>
 <div class=" overflow-x-auto shadow-md sm:rounded-lg mx-auto">
@@ -53,6 +54,9 @@
                         class="text-white bg-pink-700 hover:bg-pink-900 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 "
                         (click)="removeUser(user.id!)">Remove
                     </button>
+                    <button routerLink="/admin/update-user/{{user.id}}" routerLinkActive="router-link-active"
+                        type="button"
+                        class="text-white bg-pink-500 hover:bg-pink-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Update</button>
                 </td>
             </tr>
         </tbody>

@@ -3,11 +3,12 @@ import { User } from '../../../interface/User';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css',
 })
